@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Demo Page</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for vibrant Pikachu yellow background */
+    body {
+    background: linear-gradient(135deg, rgba(255, 255, 102, 0.85), rgba(255, 204, 0, 0.85));
+    overflow: hidden; /* Prevent scrolling */
+    position: relative; /* Added to position the ripple container */
+}
+
+        .container {
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            position: relative;
+            z-index: 1; /* Ensure container is above the 3D background */
+            margin-top: -50px; /* Adjusting to center vertically */
+        }
+
+        .container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .button {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 2px solid rgba(255, 165, 0, 1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: rgba(255, 165, 0, 0.7);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(255, 165, 0, 0.5);
+        }
+
+        .response {
+            transition: opacity 0.5s ease;
+        }
+
+        .fade-in {
+            opacity: 0;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+        }
+
+        /* Add styles for canvas */
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; /* Behind other content */
+        }
+.ripple-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none; /* Prevent mouse events */
+}
+
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    animation: ripple-animation 5s infinite;
+}
+
+@keyframes ripple-animation {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0;
+    }
+}
+.ripple:nth-child(1) {
+    width: 300%;
+    height: 300%;
+    animation-delay: 0s;
+}
+
+.ripple:nth-child(2) {
+    width: 400%;
+    height: 400%;
+    animation-delay: 1s;
+}
+
+.ripple:nth-child(3) {
+    width: 500%;
+    height: 500%;
+    animation-delay: 2s;
+}
+    </style>
+</head>
+<body>
+    <!-- Canvas for Three.js 3D background -->
+    <canvas id="canvas"></canvas>
+
+    <div class="flex justify-center items-center h-screen m-0 p-4">
+        <div class="container bg-white bg-opacity-90 border-2 border-orange-500 rounded-lg shadow-lg p-8 text-center w-3/4">
+            <h1 class="text-4xl font-bold text-orange-600 mb-4 animate-pulse">Django Pikachu Demo Page</h1>
+
+            <!-- Form for submitting favorite Pokémon -->
+            <h2 class="text-2xl mb-4">What's YOUR favorite Pokémon?!</h2>
+            <form id="favorite-form" action="/submit/" method="POST" class="mb-4">
+                {% csrf_token %}
+                <input type="text" name="favorite_pokemon" required placeholder="Your Favorite Pokémon"
+                    class="border border-gray-300 rounded p-2 mb-2 w-full focus:outline-none focus:ring-2 focus:ring-orange-500 transition" />
+                <button type="submit" class="button rounded p-2">Submit</button>
+            </form>
+
+            <div id="favorite-response" class="response mb-4 fade-in"></div>
+
+            <!-- Link back to index.html -->
+            <a href="{% url 'home' %}" class="text-blue-500 hover:underline mb-4">Back to Home Page</a>
+
+            <!-- Form for retrieving all submitted Pokémon -->
+            <h2 class="text-2xl mb-4">Favorites</h2>
+            <button id="get-pokemon" class="button rounded p-2">Show All Pokémon</button>
+            <div id="all-pokemon" class="mt-4 text-gray-700"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+// Three.js Scene Setup
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+// Create a Rhombicosidodecahedron geometry
+const geometry = new THREE.IcosahedronGeometry(1, 0); // Using an icosahedron for approximation
+const material = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.5, wireframe: false });
+const rhombicosidodecahedron = new THREE.Mesh(geometry, material);
+scene.add(rhombicosidodecahedron);
+
+camera.position.z = 5;
+
+// Pokémon-themed neon colors
+const colors = [
+    new THREE.Color(0.95, 0.85, 0.25), // Pikachu Yellow
+    new THREE.Color(0.85, 0.25, 0.25), // Charizard Orange
+    new THREE.Color(0.25, 0.85, 0.85), // Squirtle Blue
+    new THREE.Color(0.25, 0.25, 0.85), // Gengar Purple
+    new THREE.Color(0.85, 0.25, 0.85), // Jigglypuff Pink
+    new THREE.Color(0.25, 0.85, 0.25)  // Bulbasaur Green
+];
+let colorIndex = 0;
+
+// Animation Loop
+function animate() {
+    requestAnimationFrame(animate);
+    
+    // Bounce effect
+    rhombicosidodecahedron.position.x += (Math.sin(Date.now() * 0.001) * 0.05);
+    rhombicosidodecahedron.position.y += (Math.cos(Date.now() * 0.001) * 0.05);
+    
+    // Change color smoothly
+    material.color = colors[colorIndex];
+    colorIndex = (colorIndex + 1) % colors.length; // Cycle through colors
+
+    // Update rotation for some movement
+    rhombicosidodecahedron.rotation.x += 0.01;
+    rhombicosidodecahedron.rotation.y += 0.01;
+
+    renderer.render(scene, camera);
+}
+animate();
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+        // Form submission handling
+        document.getElementById('favorite-form').onsubmit = async (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const response = await fetch('/submit/', {
+                method: 'POST',
+                body: formData,
+            });
+            const result = await response.text();
+            const responseDiv = document.getElementById('favorite-response');
+            responseDiv.innerText = result;
+            responseDiv.classList.add('show'); // Fade in effect
+        };
+
+        document.getElementById('get-pokemon').onclick = async () => {
+            const response = await fetch('/get_all_pokemon/');
+            const result = await response.text();
+            document.getElementById('all-pokemon').innerText = result;
+        };
+    </script>
+<!-- Ripple effect container -->
+<div class="ripple-container">
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+</div>
+</body>
+</html>

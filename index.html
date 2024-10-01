@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <style>
+        /* Basic styles for the UI */
+        .ui-container {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+
+        .controls-box {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 60px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5), 0 0 60px rgba(255, 255, 0, 0.5);
+        }
+
+        .control-button {
+            margin: 5px;
+            padding: 12px 18px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            color: white;
+            transition: background-color 0.3s, transform 0.2s;
+            opacity: 0.8; /* Increased opacity for better visibility */
+        }
+
+        .control-button:hover {
+            transform: scale(1.1);
+        }
+
+        .control-button:hover {
+            transform: scale(1.1); /* Slightly enlarge on hover */
+        }
+
+        /* Button colors representing Pikachu's neon theme */
+        .button-zoom-in { background-color: #FFD700; } /* Neon Yellow */
+        .button-zoom-out { background-color: #FF6347; } /* Neon Orange */
+        .button-up { background-color: #FF4500; } /* Neon Red */
+        .button-down { background-color: #32CD32; } /* Neon Lime Green */
+        .button-left { background-color: #00BFFF; } /* Neon Deep Sky Blue */
+        .button-right { background-color: #FF1493; } /* Neon Deep Pink */
+
+        .neon-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 20px;
+            color: #000;
+            text-decoration: none;
+            text-align: center;
+            background: rgba(255, 255, 0, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 0 5px #fff, 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 30px #ffcc00;
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <a-scene background="color: black;">
+        <!-- Load Pikachu Model -->
+        <a-assets>
+            <a-asset-item id="pikachu" src="scene.gltf"></a-asset-item>
+        </a-assets>
+
+        <!-- Pikachu model with specified scale -->
+        <a-entity 
+            id="pikachuEntity"
+            gltf-model="#pikachu" 
+            position="0 0 0" 
+            scale="0.0909 0.0909 0.0909"> <!-- Updated scale -->
+        </a-entity>
+
+        <!-- Camera Entity with specified position -->
+        <a-camera id="camera" position="0 11.65 35" fov="60" look-controls="true"></a-camera>
+        
+        <a-sky color="#000"></a-sky>
+    </a-scene>
+
+    <!-- Pokémon Favorite Form -->
+    <div class="ui-container" style="position: absolute; top: 20px; left: 20px;">
+        <h2 style="font-size: 24px; margin: 0;">What's your favorite Pokémon?</h2> <!-- Increased font size -->
+<form id="pokemon-form" action="/submit/" method="POST">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <input 
+        type="text" 
+        id="favorite_pokemon" 
+        name="favorite_pokemon" 
+        required 
+        placeholder="What's YOUR favorite Pokemon?!" 
+        style="width: 300px; height: 40px; font-size: 18px; margin-top: 10px;" />
+    <button 
+        type="submit" 
+        style="font-size: 18px; padding: 15px 30px; margin-top: 10px;">
+        Submit
+    </button>
+</form>
+        <div id="response-message"></div>  <!-- This will display the response -->
+    </div>
+
+    <!-- Controls Box for Zoom and Direction -->
+    <div class="controls-box">
+        <button class="control-button button-zoom-in" onclick="zoomIn()">Zoom In</button>
+        <button class="control-button button-zoom-out" onclick="zoomOut()">Zoom Out</button>
+        <button class="control-button button-up" onclick="moveUp()">Up</button>
+        <button class="control-button button-down" onclick="moveDown()">Down</button>
+        <button class="control-button button-left" onclick="moveLeft()">Left</button>
+        <button class="control-button button-right" onclick="moveRight()">Right</button>
+    </div>
+
+    <script>
+        // Function to change models (placeholder)
+        function changeModel(model) {
+            console.log("Change to model:", model);
+            // Load model changing logic here
+        }
+
+        // Camera movement functions
+        function zoomIn() {
+            const camera = document.querySelector('#camera');
+            const position = camera.getAttribute('position');
+            camera.setAttribute('position', `${position.x} ${position.y} ${position.z - 1}`);
+        }
+
+        function zoomOut() {
+            const camera = document.querySelector('#camera');
+            const position = camera.getAttribute('position');
+            camera.setAttribute('position', `${position.x} ${position.y} ${position.z + 1}`);
+        }
+
+        function moveUp() {
+            const camera = document.querySelector('#camera');
+            const position = camera.getAttribute('position');
+            camera.setAttribute('position', `${position.x} ${position.y + 1} ${position.z}`);
+        }
+
+        function moveDown() {
+            const camera = document.querySelector('#camera');
+            const position = camera.getAttribute('position');
+            camera.setAttribute('position', `${position.x} ${position.y - 1} ${position.z}`);
+        }
+
+        function moveLeft() {
+            const camera = document.querySelector('#camera');
+            const position = camera.getAttribute('position');
+            camera.setAttribute('position', `${position.x - 1} ${position.y} ${position.z}`);
+        }
+
+        function moveRight() {
+            const camera = document.querySelector('#camera');
+            const position = camera.getAttribute('position');
+            camera.setAttribute('position', `${position.x + 1} ${position.y} ${position.z}`);
+        }
+    </script>
+<script>
+    // Function to get CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+const form = document.getElementById('pokemon-form');
+const responseMessage = document.getElementById('response-message');
+
+form.onsubmit = async (event) => {
+    event.preventDefault();  // Prevent default form submission
+    const formData = new FormData(form);
+    const response = await fetch('/submit/', {
+        method: 'POST',
+        body: formData, // Include formData in the body of the request
+        headers: {
+            'X-CSRFToken': getCookie('csrftoken'), // Include CSRF token
+        }
+    });
+    
+    const result = await response.text();  // Get the response text
+    responseMessage.innerText = result; // Display response in the response message div
+
+    // Show alert for submission
+    alert(result); // Alert the user with the response message
+};
+</script>
+<!-- Basic Yellow Button Link -->
+<div style="position: fixed; bottom: 20px; left: 20px; z-index: 100;">
+    <a href="https://willco-projects.netlify.app" target="_blank" 
+       style="display: inline-block; padding: 15px 30px; background-color: yellow; color: black; 
+              text-decoration: none; border-radius: 5px; font-size: 16px; font-weight: bold;">
+        Visit My Projects
+    </a>
+</div>
+</body>

@@ -1,0 +1,384 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 5270,
+      "max": [
+        0.27296000719070435,
+        0.743598997592926,
+        2.2436060905456543
+      ],
+      "min": [
+        -3.405967950820923,
+        -1.2997939586639404,
+        -2.2401649951934814
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 63240,
+      "componentType": 5126,
+      "count": 5270,
+      "max": [
+        0.9999993443489075,
+        0.9999997615814209,
+        0.9999796152114868
+      ],
+      "min": [
+        -0.9999986290931702,
+        -1.0,
+        -0.9999451041221619
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 5270,
+      "max": [
+        1.0,
+        0.9999992251396179,
+        0.9999229311943054,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -0.9997186660766602,
+        -0.9999949932098389,
+        -1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 5270,
+      "max": [
+        0.9931349754333496,
+        0.993399977684021
+      ],
+      "min": [
+        0.03013700060546398,
+        0.01027000043541193
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 23640,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 126480,
+      "componentType": 5126,
+      "count": 154,
+      "max": [
+        -0.5291100144386292,
+        -1.0021519660949707,
+        1.40755295753479
+      ],
+      "min": [
+        -2.621551990509033,
+        -1.0308510065078735,
+        -0.08107899874448776
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 128328,
+      "componentType": 5126,
+      "count": 154,
+      "max": [
+        0.10870902240276337,
+        -0.9612136483192444,
+        0.07715702801942825
+      ],
+      "min": [
+        -0.04622802510857582,
+        -0.9999476671218872,
+        -0.2755618989467621
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 84320,
+      "componentType": 5126,
+      "count": 154,
+      "max": [
+        0.9999865293502808,
+        0.10852108150720596,
+        -0.002630274510011077,
+        1.0
+      ],
+      "min": [
+        0.9940643310546875,
+        -0.04644662141799927,
+        -0.00802062451839447,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 42160,
+      "componentType": 5126,
+      "count": 154,
+      "max": [
+        0.9664660096168518,
+        0.9881979823112488
+      ],
+      "min": [
+        0.794169008731842,
+        0.865693986415863
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 94560,
+      "componentType": 5125,
+      "count": 780,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "Wikiti (https://sketchfab.com/wikiti)",
+      "license": "SKETCHFAB Standard (https://sketchfab.com/licenses)",
+      "source": "https://sketchfab.com/3d-models/pocket-pikachu-f9ea485010804602b96e1ee3f0c5d241",
+      "title": "Pocket pikachu"
+    },
+    "generator": "Sketchfab-16.14.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 97680,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 43392,
+      "byteOffset": 97680,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 130176,
+      "byteOffset": 141072,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 86784,
+      "byteOffset": 271248,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 358032,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/Pocket_Pikachu_baseColor.png"
+    },
+    {
+      "uri": "textures/Pocket_Pikachu_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/Pocket_Pikachu_normal.png"
+    }
+  ],
+  "materials": [
+    {
+      "alphaMode": "BLEND",
+      "doubleSided": true,
+      "name": "Pocket_Pikachu",
+      "normalTexture": {
+        "index": 2
+      },
+      "occlusionTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "defaultMaterial",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "indices": 4,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "defaultMaterial",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 6,
+            "POSITION": 5,
+            "TANGENT": 7,
+            "TEXCOORD_0": 8
+          },
+          "indices": 9,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        0.9751201868057251,
+        -0.12025577574968342,
+        0.18622358143329618,
+        0.0,
+        0.13337206840515137,
+        -0.35274747014045693,
+        -0.926164746284485,
+        0.0,
+        0.17706656455993652,
+        0.927958905696869,
+        -0.3279324173927305,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -4.371139006309477e-08,
+        0.999999999999999,
+        0.0,
+        0.0,
+        -0.999999999999999,
+        -4.371139006309477e-08,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Collada visual scene group"
+    },
+    {
+      "children": [
+        3,
+        4
+      ],
+      "matrix": [
+        100.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.6e-05,
+        -100.0,
+        0.0,
+        0.0,
+        100.0,
+        -1.6e-05,
+        0.0,
+        156.386002,
+        231.138428,
+        -56.142406,
+        1.0
+      ],
+      "name": "Pocket"
+    },
+    {
+      "mesh": 0,
+      "name": "defaultMaterial"
+    },
+    {
+      "children": [
+        5
+      ],
+      "name": "Pocket"
+    },
+    {
+      "mesh": 1,
+      "name": "defaultMaterial"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    }
+  ]
+}
