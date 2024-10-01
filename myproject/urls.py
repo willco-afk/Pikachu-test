@@ -7,8 +7,8 @@ from .views import index, submit_favorite, page2_view, get_all_pokemon  # Import
 
 urlpatterns = [
     path('admin/', admin.site.urls),  # Access the admin panel at /admin
-    path('', index, name='home'),  # Home page points to your Pikachu HTML
-    path('submit/', submit_favorite, name='submit_favorite'),  # New path for form submission
+    path('', index, name='index'),  # Home page points to your index view
+    path('submit/', submit_favorite, name='submit_favorite'),  # Path for form submission
     path('page2/', page2_view, name='page2'),  # Path for page2
     path('get_all_pokemon/', get_all_pokemon, name='get_all_pokemon'),  # Path for getting all Pokémon
 ]
