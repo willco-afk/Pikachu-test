@@ -7,7 +7,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'your-default-secret-key')  # Tempor
 
 DEBUG = True  # Set to False in production
 
-ALLOWED_HOSTS = []  # Add allowed hosts in production
+ALLOWED_HOSTS = ['pikachu-test.onrender.com', 'localhost', '127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
